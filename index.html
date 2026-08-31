@@ -3,42 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="GitHubで公開しているプロジェクトのダウンロード、使い方、エラー対処、設定用語をまとめたユーザー向けガイド。">
-  <title>Project Guide</title>
+  <meta name="description" content="GitHubの使い方、Releases、Actions、Pages、Pull Request、Settings、英語表記、エラー対処を自分用にまとめたガイド。">
+  <title>GitHub Guide</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
 
   <header class="topbar">
-    <a class="brand" href="./" aria-label="Project Guide トップ">
-      <span class="brand-mark" aria-hidden="true">PG</span>
-      <span><strong>Project Guide</strong><small>ユーザー向けサポート</small></span>
+    <a class="brand" href="./" aria-label="GitHub Guide トップ">
+      <span class="brand-mark" aria-hidden="true">GH</span>
+      <span><strong>GitHub Guide</strong><small>自分用の使い方メモ</small></span>
     </a>
     <label class="search">
       <span class="sr-only">ガイド内検索</span>
-      <input id="globalSearch" type="search" placeholder="エラー番号、英語表記、設定名を検索">
+      <input id="globalSearch" type="search" placeholder="Release、Artifact、Pages、英語、エラーを検索">
     </label>
   </header>
 
   <div class="shell">
-    <aside class="sidebar" aria-label="ガイドメニュー">
-      <div class="project-picker">
-        <label for="projectSelect">プロジェクト</label>
-        <select id="projectSelect"></select>
-      </div>
+    <aside class="sidebar" aria-label="GitHubガイドメニュー">
       <nav id="sideNav">
-        <button data-section="overview" class="active">概要</button>
-        <button data-section="download">ダウンロード</button>
-        <button data-section="start">はじめ方</button>
+        <button data-section="overview" class="active">まず見る</button>
+        <button data-section="repository">Repository</button>
+        <button data-section="releases">Releases / exe</button>
+        <button data-section="actions">Actions</button>
+        <button data-section="pages">GitHub Pages</button>
+        <button data-section="branch-pr">Branch / PR</button>
+        <button data-section="issues">Issues</button>
+        <button data-section="settings">Settings</button>
+        <button data-section="terms">英語・用語</button>
         <button data-section="errors">エラー対処</button>
-        <button data-section="settings">設定・用語</button>
-        <button data-section="faq">FAQ</button>
-        <button data-section="updates">更新情報</button>
       </nav>
       <div class="sidebar-note">
-        <strong>困ったとき</strong>
-        <p>表示された英語やエラー番号をそのまま検索すると見つけやすくなります。</p>
+        <strong>使い方</strong>
+        <p>「何をしたいか」か、GitHubに表示された英語を検索する。</p>
       </div>
     </aside>
 
@@ -50,7 +49,7 @@
   </div>
 
   <footer>
-    <span>Project Guide</span>
+    <span>GitHub Guide</span>
     <span id="footerUpdated"></span>
   </footer>
 
