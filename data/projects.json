@@ -1,145 +1,547 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "updated": "2026-08-31",
-  "projects": [
+  "quickActions": [
     {
-      "id": "osu-hub",
-      "name": "osu! Hub / osu Setup Launcher",
-      "summary": "osu!の記録・練習管理を行うWeb版と、音声出力切替やOpenTabletDriver起動などをまとめたWindows向けosu Setup Launcherのユーザーガイドです。",
-      "status": "公開中",
-      "updated": "2026-08-31",
-      "platforms": [
-        "Webブラウザ",
-        "Windows 10 / 11（Launcher）"
-      ],
-      "repositoryUrl": "https://github.com/EliteMay/osu-hub",
-      "webUrl": "https://elitemay.github.io/osu-hub/",
-      "release": {
-        "githubRepo": "EliteMay/osu-hub",
-        "assetPattern": "^osu_setup_.*_setup\\.exe$",
-        "latestReleaseUrl": "https://github.com/EliteMay/osu-hub/releases/latest",
-        "version": "v0.18.3",
-        "date": "2026-08-31T08:13:37Z",
-        "assetName": "osu_setup_0.18.3_setup.exe",
-        "unsignedWarning": "現在のWindowsインストーラーはコード署名されていないため、Windows SmartScreenの警告が表示される場合があります。GitHubのEliteMay/osu-hub Releaseから取得したファイルであることを確認してください。"
-      },
-      "updateSteps": [
-        "v0.18.2以降を使っている場合は、Launcher内の更新通知からOne-click Updateを利用できます。",
-        "v0.18.1以前にはUpdaterが入っていないため、まず最新版Setup.exeを1回手動でインストールします。",
-        "更新中に問題が起きた場合は現在Versionを継続利用し、このガイドのReleaseページから手動更新します。",
-        "設定はElectron userDataへ保存する構成ですが、重要な設定やデータがある場合は更新前に確認してください。"
-      ],
-      "startSteps": [
-        "Web機能だけ使う場合はosu! HubのGitHub Pagesを開きます。",
-        "Windows補助機能を使う場合は「ダウンロード」から最新版のSetup.exeを入手します。",
-        "インストール後にosu Setup Launcherを起動します。",
-        "音声出力、OpenTabletDriver、REAL等、必要な機能だけ設定します。",
-        "設定名や内部用語が分からない場合は、このガイドの「設定・用語」を確認します。"
-      ],
-      "errors": [
+      "section": "releases",
+      "title": "exeを配布・入手したい",
+      "description": "ReleasesとAssetsの場所、最新版リンクを見る"
+    },
+    {
+      "section": "actions",
+      "title": "自動処理の結果を見たい",
+      "description": "Actions、Workflow Run、Job、Artifactを見る"
+    },
+    {
+      "section": "pages",
+      "title": "サイトを公開したい",
+      "description": "GitHub Pagesの設定と公開失敗の確認場所を見る"
+    },
+    {
+      "section": "site-ops",
+      "title": "自分のサイトを運用したい",
+      "description": "更新後の確認、Pages、Releaseとのつなぎ方を見る"
+    },
+    {
+      "section": "terms",
+      "title": "英語が分からない",
+      "description": "GitHub画面の英語表記を日本語で引く"
+    },
+    {
+      "section": "errors",
+      "title": "エラーになった",
+      "description": "404、Actions失敗、Conflictなどから逆引きする"
+    }
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "GitHubで何をしたい？",
+      "description": "自分がGitHubを使うときに、目的から必要なページへすぐ移動するための入口です。",
+      "badge": "自分用メモ",
+      "entries": [
         {
-          "id": "AUDIO-001",
-          "title": "音声出力の切替が成功しない",
-          "meaning": "Launcherから指定した再生デバイスへWindowsの既定出力を切り替えられていない状態です。",
-          "firstAction": "対象デバイスがWindows側で使用可能になっているか確認し、Launcherを再起動してもう一度切替を試します。FxSoundなど表示名が複数の形式になるデバイスでは最新版Launcherを使用してください。",
-          "causes": [
-            "デバイス名の表記差",
-            "SoundVolumeCommandLineでの対象照合失敗",
-            "Windows Core Audio Fallbackの失敗"
-          ],
-          "safeNote": "v0.18.3ではFxSoundのようにSVCL名とWindows Friendly Nameの語順が異なる場合の照合が改善されています。実Windows環境での挙動は環境差があります。"
+          "title": "コードやサイトを見る・直す",
+          "summary": "まずRepositoryを開く。Codeがファイル本体、READMEが説明、Commitsが変更履歴。"
         },
         {
-          "id": "UPDATE-001",
-          "title": "アプリ内から更新できない",
-          "meaning": "古いLauncherにUpdaterが入っていない、またはGitHub Releasesへの更新確認に失敗している可能性があります。",
-          "firstAction": "v0.18.1以前なら、このガイドから最新版Setup.exeを1回手動インストールしてください。v0.18.2以降ならネット接続を確認して再試行します。",
-          "causes": [
-            "v0.18.1以前を使用中",
-            "ネットワーク障害",
-            "GitHub Releasesへの接続失敗"
-          ],
-          "safeNote": "更新確認に失敗しても現在Versionを継続利用できる設計です。"
+          "title": "完成版を配る・ダウンロードする",
+          "summary": "Releasesを使う。Setup.exeやZIPはReleaseのAssetsを見る。"
         },
         {
-          "id": "WIN-001",
-          "title": "Windows SmartScreenの警告が表示される",
-          "message": "Windows protected your PC",
-          "meaning": "現在のSetup.exeがコード署名されていないため、Windowsが発行元をAuthenticodeで確認できない状態です。",
-          "firstAction": "ダウンロード元がEliteMay/osu-hubのGitHub Releaseであることを確認します。別サイトから取得した同名ファイルは使用しないでください。",
-          "causes": [
-            "Installerが未署名"
-          ],
-          "safeNote": "警告が出ないことだけを安全性の根拠にはしません。配布元の確認を優先してください。"
+          "title": "自動処理を見る",
+          "summary": "Actionsを開く。Workflow → Run → Job → Stepの順に原因を絞る。生成物はArtifactsを見る。"
+        },
+        {
+          "title": "Webサイトを公開する",
+          "summary": "Settings → Pages。公開失敗や更新されない場合はActionsのPages Runを見る。"
+        },
+        {
+          "title": "壊さず大きく変更する",
+          "summary": "Branchを作り、Pull Requestで差分とCIを確認してからmainへMergeする。"
         }
-      ],
-      "settings": [
+      ]
+    },
+    {
+      "id": "repository",
+      "title": "Repositoryの基本",
+      "description": "各プロジェクトで最初に見る場所と、ファイル・履歴の見方。",
+      "entries": [
         {
-          "label": "One-click Update",
-          "ja": "アプリ内ワンクリック更新",
-          "description": "新しいVersionをGitHub Releasesから取得し、Launcherを終了してインストールした後、新Versionで再起動する更新方式です。",
-          "recommendation": "v0.18.2以降で利用"
+          "title": "Codeタブ",
+          "path": "Repository → Code",
+          "summary": "現在のファイル本体を見る場所。HTML、CSS、JS、JSON、READMEなどはここから開く。",
+          "steps": [
+            "対象Repositoryを開く",
+            "Codeタブを開く",
+            "フォルダまたはファイルを開く",
+            "上部でmainなど現在見ているBranchを確認する"
+          ],
+          "note": "現在の状態を確認するときは、古いZIPよりGitHub上の最新Branchを優先する。"
         },
         {
-          "label": "Check for updates",
-          "ja": "更新を確認",
-          "description": "GitHub Releasesに新しいLauncherが公開されているか確認します。起動時の自動確認は設定からOFFにできます。",
-          "recommendation": "基本はON"
+          "title": "README.md",
+          "path": "Repository → Code → README.md",
+          "summary": "そのRepositoryの目的、使い方、構成、注意点を書く説明書。Repositoryトップにも表示される。",
+          "note": "READMEと実装が食い違う場合は、READMEが古いのか実装が間違っているのか確認する。"
         },
         {
-          "label": "SoundVolumeCommandLine / SVCL",
-          "ja": "音声出力を切り替える補助ツール",
-          "description": "LauncherがWindowsの既定再生デバイスを切り替えるときに優先して使用する仕組みです。",
-          "recommendation": "通常はユーザーが直接操作する必要なし"
-        },
-        {
-          "label": "userData",
-          "ja": "Launcherのユーザー設定保存場所",
-          "description": "Electronがアプリ設定を保存するWindows側の領域です。Installer更新でアプリ本体を入れ替えても設定を維持しやすくするために使います。",
-          "recommendation": "通常は変更しない"
-        },
-        {
-          "label": "DefaultRenderDevice",
-          "ja": "Windowsの既定再生デバイス",
-          "description": "音楽やゲーム音など、通常の音声を出す標準の出力先です。Launcherの音声切替確認で参照されます。",
-          "recommendation": "音が出ないときの確認項目"
-        }
-      ],
-      "faq": [
-        {
-          "q": "Releaseページには3つファイルがあるけど、どれをダウンロードすればいい？",
-          "a": "通常のWindowsユーザーはosu_setup_<version>_setup.exeを使います。latest.ymlと.blockmapはアプリ内自動更新のためのファイルなので、手動で開く必要はありません。"
-        },
-        {
-          "q": "v0.18.1からアプリ内更新できる？",
-          "a": "できません。Updaterはv0.18.2から入ったため、v0.18.1以前からは一度だけv0.18.2以降のSetup.exeを手動でインストールする必要があります。"
-        },
-        {
-          "q": "osu! HubのWeb版を使うのにもSetup.exeが必要？",
-          "a": "不要です。Setup.exeはWindows固有の補助機能を使うosu Setup Launcher用です。Web版はGitHub Pagesから利用できます。"
-        },
-        {
-          "q": "更新したら設定は消える？",
-          "a": "Launcher設定はElectron userDataへ保存する構成なので、通常のInstaller更新で上書きしない設計です。ただし重要なデータは別途バックアップできる状態にしておくと安全です。"
-        }
-      ],
-      "changelog": [
-        {
-          "version": "v0.18.3",
-          "date": "2026-08-31",
-          "items": [
-            "FxSoundでSVCL名とWindows Friendly Nameの語順・表記が異なる場合の音声Endpoint照合を改善",
-            "FxSound語順差のWindows CI Self Testを追加",
-            "v0.18.2以降はOne-click Updateで更新可能"
+          "title": "Commits",
+          "path": "Repository → Code → Commits",
+          "summary": "いつ何を変更したかを見る履歴。問題が起きた直前の変更を探すときにも使う。",
+          "steps": [
+            "Commitsを開く",
+            "対象Commitを選ぶ",
+            "変更されたファイルとdiffを見る"
           ]
         },
         {
-          "version": "v0.18.2",
-          "date": "2026-08-31",
-          "items": [
-            "electron-updaterとGitHub Releasesを使ったOne-click Updateを導入",
-            "v0.18.1以前からはv0.18.2以降のSetup.exeを1回手動導入するBootstrap方式"
+          "title": "Download ZIP",
+          "path": "Repository → Codeボタン → Download ZIP",
+          "summary": "Repositoryのソース一式をZIPで取得する。完成版exeを入手する場所ではない。",
+          "note": "完成版アプリを使いたいだけなら、ReleasesにSetup.exeがないか先に見る。"
+        }
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "Releases / exe配布",
+      "description": "完成版のSetup.exe、ZIP、更新ファイルなどを公開・ダウンロードする場所。",
+      "entries": [
+        {
+          "title": "最新版のexeをダウンロードする",
+          "path": "Repository → Releases → Latest → Assets",
+          "summary": "完成済みWindowsアプリを入手するときは、CodeのDownload ZIPではなくReleaseのAssetsを見る。",
+          "steps": [
+            "Repositoryを開く",
+            "Releasesを開く",
+            "Latestと表示されたReleaseを開く",
+            "AssetsからSetup.exeなど必要なファイルを押す"
+          ],
+          "note": "latest.ymlや.blockmapはAuto Update用の場合があり、普通は手動で開かない。"
+        },
+        {
+          "title": "最新版Releaseへ直接リンクする",
+          "summary": "Repository URLの末尾に /releases/latest を付けると最新版Releaseへ移動できる。",
+          "example": "https://github.com/OWNER/REPO/releases/latest",
+          "note": "固定Asset名なら /releases/latest/download/ファイル名 で最新版Assetへ直接リンクできる。"
+        },
+        {
+          "title": "新しいReleaseを作る",
+          "path": "Repository → Releases → Draft a new release",
+          "summary": "Versionを区切って完成版を公開する。Tag、タイトル、説明、Assetsを設定する。",
+          "steps": [
+            "Releasesを開く",
+            "Draft a new releaseを押す",
+            "Tagを選ぶか作る",
+            "Release titleと変更内容を書く",
+            "Setup.exeやZIPをAssetsとして追加する",
+            "正式版ならPublish releaseする"
+          ],
+          "note": "ElectronのAuto UpdateではSetup.exeだけでなくlatest.ymlやblockmapなど必要Artifactも同Versionで揃える。"
+        },
+        {
+          "title": "Assets",
+          "path": "Release → Assets",
+          "summary": "Releaseに添付された実ファイル。exe、zip、更新メタデータなどが並ぶ。",
+          "note": "Source code (zip/tar.gz) はGitHubが自動生成するソースで、Setup.exeとは別。"
+        }
+      ]
+    },
+    {
+      "id": "actions",
+      "title": "GitHub Actions",
+      "description": "テスト、ビルド、Release作成、Pages公開などの自動処理を見る場所。",
+      "entries": [
+        {
+          "title": "Actionsの結果を見る",
+          "path": "Repository → Actions",
+          "summary": "自動テストやビルドが成功したか失敗したか確認する。",
+          "steps": [
+            "Actionsタブを開く",
+            "Workflowを選ぶ",
+            "対象Workflow Runを開く",
+            "失敗したJobを開く",
+            "赤く失敗したStepのログを見る"
+          ],
+          "note": "『Actions failed』だけでは原因は分からない。Run → Job → Stepまで開く。"
+        },
+        {
+          "title": "Artifactをダウンロードする",
+          "path": "Actions → Workflow Run → Artifacts",
+          "summary": "Workflowが生成したSetup.exe、ZIP、ログ、テスト結果などを取得する。",
+          "steps": [
+            "対象Workflow Runを開く",
+            "Artifactsを探す",
+            "Artifact名を押してダウンロードする"
+          ],
+          "note": "ArtifactはReleaseとは別。検証用BuildをArtifact、一般配布用をReleaseに分けることがある。"
+        },
+        {
+          "title": "Workflowを再実行する",
+          "path": "Actions → Workflow Run → Re-run jobs",
+          "summary": "一時的な失敗や修正後の確認でWorkflowを再実行する。",
+          "note": "コード自体が間違っている場合、同じCommitを何度再実行しても直らない。先にログを見る。"
+        },
+        {
+          "title": "Workflowファイル",
+          "path": ".github/workflows/*.yml",
+          "summary": "Actionsで何を、いつ、どの環境で実行するか書く設定ファイル。",
+          "note": "push、pull_request、workflow_dispatchなどが実行タイミングを決める。"
+        }
+      ]
+    },
+    {
+      "id": "pages",
+      "title": "GitHub Pages",
+      "description": "HTML/CSS/JSなどの静的サイトをGitHubから公開する機能。",
+      "entries": [
+        {
+          "title": "main Branchからサイトを公開する",
+          "path": "Repository → Settings → Pages → Build and deployment",
+          "summary": "単純な静的サイトならmain Branchのrootや/docsを公開元にできる。",
+          "steps": [
+            "Settingsを開く",
+            "Pagesを開く",
+            "SourceでDeploy from a branchを選ぶ",
+            "Branchでmainを選ぶ",
+            "Folderで/(root)または/docsを選ぶ",
+            "Saveする"
+          ],
+          "note": "ビルド処理が必要なサイトではGitHub Actionsを公開元にする場合がある。"
+        },
+        {
+          "title": "公開URL",
+          "summary": "通常のProject Pagesは https://ユーザー名.github.io/Repository名/ の形になる。",
+          "example": "https://elitemay.github.io/project-guide/",
+          "note": "Repository名を含むサブパスなので、/assets/... のようなroot固定Pathは壊れることがある。"
+        },
+        {
+          "title": "Pagesの公開失敗を見る",
+          "path": "Repository → Actions → pages build and deployment",
+          "summary": "Pagesが404・更新されない・Build失敗の場合はPages用Workflow Runを見る。",
+          "steps": [
+            "Actionsを開く",
+            "pages build and deploymentを探す",
+            "最新Runを開く",
+            "buildまたはdeployの失敗Stepを見る"
           ]
+        }
+      ]
+    },
+    {
+      "id": "branch-pr",
+      "title": "Branch / Pull Request",
+      "description": "mainを直接壊さずに変更し、差分・CIを確認してから反映する方法。",
+      "entries": [
+        {
+          "title": "Branch",
+          "path": "Repository → Branch selector",
+          "summary": "mainとは別の作業線。大きな修正や実験をmainから分離して進める。",
+          "steps": [
+            "mainから新しいBranchを作る",
+            "そのBranchで修正する",
+            "テストする",
+            "問題なければPull Requestを作る"
+          ],
+          "note": "小さく明確な修正はmainへ直接反映することもあるが、大変更はBranchの方が安全。"
+        },
+        {
+          "title": "Pull Request / PR",
+          "path": "Repository → Pull requests",
+          "summary": "Branchの変更をmainへ入れる前に、差分、コメント、CI結果をまとめて確認する場所。",
+          "steps": [
+            "Pull requestsを開く",
+            "New pull requestを押す",
+            "baseをmain、compareを作業Branchにする",
+            "Files changedとChecksを見る",
+            "問題なければMergeする"
+          ]
+        },
+        {
+          "title": "Merge",
+          "summary": "Pull Requestの変更をmainへ取り込むこと。",
+          "note": "CI失敗や意図しない差分が残っている場合は先に直す。"
+        },
+        {
+          "title": "Conflict",
+          "summary": "同じ場所を別々に変更したため、GitHubが自動でどちらを採用するか決められない状態。",
+          "note": "両方の変更内容を確認して、最終的に残す内容を人間が決める。"
+        }
+      ]
+    },
+    {
+      "id": "issues",
+      "title": "Issues",
+      "description": "バグ、TODO、改善案、後でやることをRepository単位で残す場所。",
+      "entries": [
+        {
+          "title": "Issueを作る",
+          "path": "Repository → Issues → New issue",
+          "summary": "バグや作業予定をタイトルと本文で記録する。",
+          "steps": [
+            "Issuesを開く",
+            "New issueを押す",
+            "何が起きたか・どうしたいかを書く",
+            "必要ならLabelやAssigneeを付ける"
+          ],
+          "note": "コード変更そのものではなく『何を直すか』を追跡する場所。"
+        },
+        {
+          "title": "Close issue",
+          "summary": "対応済み、不要、重複などでIssueを終了する。",
+          "note": "修正CommitやPRへのリンクを残しておくと後から追いやすい。"
+        },
+        {
+          "title": "Labels",
+          "summary": "bug、enhancement、documentationなどIssueやPRを分類するラベル。",
+          "note": "増やしすぎると逆に探しづらくなる。"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "description": "Repositoryの公開、Pages、Actions、権限、Secretsなど重要設定を触る場所。",
+      "entries": [
+        {
+          "title": "Pages",
+          "path": "Settings → Pages",
+          "summary": "GitHub Pagesの公開元やCustom domainなどを設定する。"
+        },
+        {
+          "title": "Actions settings",
+          "path": "Settings → Actions → General",
+          "summary": "Actionsの実行許可、Workflow permissionsなどを設定する。",
+          "note": "WorkflowからRelease作成など書き込みが必要な場合、権限設定が原因で失敗することがある。"
+        },
+        {
+          "title": "Secrets and variables",
+          "path": "Settings → Secrets and variables → Actions",
+          "summary": "API Key、Tokenなど公開コードへ置けない値をActionsで使うために保存する。",
+          "note": "SecretをHTML、JS、JSON、READMEへ直接書かない。"
+        },
+        {
+          "title": "Danger Zone",
+          "path": "Settings → General → Danger Zone",
+          "summary": "Repository削除、Visibility変更、Archiveなど影響の大きい操作がある。",
+          "note": "名前どおり破壊的操作が多い。意味が分からない状態で触らない。"
+        }
+      ]
+    },
+    {
+      "id": "site-ops",
+      "title": "自作サイトの運用メモ",
+      "description": "GitHubの一般機能だけでなく、自分が作っているサイトを更新・確認するときによく使う流れ。",
+      "badge": "補助ページ",
+      "entries": [
+        {
+          "title": "サイトを更新した後に見る順番",
+          "summary": "コードを変更しただけで終わらず、GitHub上の最終状態と公開サイトまで確認する。",
+          "steps": [
+            "Codeで変更がmainへ入っているか確認する",
+            "Actionsのテストが成功しているか見る",
+            "Pagesを使うサイトはpages build and deploymentを見る",
+            "公開URLを実際に開く",
+            "主要ページ、検索、保存、リンクなど変更した機能を確認する"
+          ],
+          "note": "CI成功だけで『公開サイトも正常』とは限らない。可能なら実際のURLも見る。"
+        },
+        {
+          "title": "GitHub PagesサイトのURLを思い出す",
+          "summary": "基本は https://elitemay.github.io/Repository名/ 。",
+          "example": "Repository: project-guide → https://elitemay.github.io/project-guide/",
+          "note": "正確なURLはSettings → Pagesでも確認できる。"
+        },
+        {
+          "title": "サイトにexeダウンロードボタンを置く",
+          "summary": "exe本体をPagesへ直接置くより、GitHub Releasesの最新版へリンクする方が管理しやすい。",
+          "steps": [
+            "対象アプリのReleaseを作る",
+            "Setup.exeをAssetsへ入れる",
+            "サイトのダウンロードボタンを /releases/latest または最新版Assetへ向ける"
+          ],
+          "note": "Auto Updateを使うElectronアプリではReleaseのMetadataも必要になる場合がある。"
+        },
+        {
+          "title": "サイトが更新されていないように見える",
+          "summary": "まずmainの内容、Pages deploy、ブラウザCacheの順で切り分ける。",
+          "steps": [
+            "GitHub Code上で新しい内容が入っているか確認する",
+            "Pages Workflowが成功しているか確認する",
+            "公開URLを再読み込みする",
+            "必要なら強制再読み込みや別ブラウザで確認する"
+          ],
+          "note": "最初からCacheのせいと決めつけず、GitHub側のDeploy成功を先に見る。"
+        },
+        {
+          "title": "ChatGPTに修正してもらった後",
+          "summary": "GitHubへ反映されたファイル、README、Actions、Pagesの順に確認すると現在状態を把握しやすい。",
+          "steps": [
+            "対象RepositoryのCodeを確認する",
+            "変更されたREADMEや仕様書がある場合は内容を見る",
+            "Actionsの最終Runを見る",
+            "Pagesサイトなら公開URLも見る"
+          ],
+          "note": "古いZIPや過去チャットより、現在のGitHubを正本として確認する。"
+        }
+      ]
+    },
+    {
+      "id": "terms",
+      "title": "英語・用語辞典",
+      "description": "GitHubの画面に出る英語を、自分が使う意味に絞って理解する。",
+      "entries": [
+        {
+          "title": "Repository",
+          "ja": "プロジェクト置き場",
+          "summary": "コード、履歴、Issue、Actions、Releaseなどをまとめる単位。",
+          "note": "Repoと略される。"
+        },
+        {
+          "title": "Branch",
+          "ja": "別の作業線",
+          "summary": "mainから分けて修正や実験を進める。",
+          "note": "mainが通常の正本Branch。"
+        },
+        {
+          "title": "Commit",
+          "ja": "変更の記録",
+          "summary": "ファイル変更を1つの履歴として保存したもの。",
+          "note": "Commit messageで何を変えたか分かるようにする。"
+        },
+        {
+          "title": "Pull Request",
+          "ja": "この変更をmainへ入れていいか確認する場所",
+          "summary": "Branchの差分、CI、コメントを確認してMergeする。",
+          "note": "PRと略される。"
+        },
+        {
+          "title": "Merge",
+          "ja": "変更を取り込む",
+          "summary": "BranchやPRの内容をmainなど別Branchへ統合する。"
+        },
+        {
+          "title": "Release",
+          "ja": "完成版の公開",
+          "summary": "Versionごとの説明とSetup.exe、ZIPなどを配布する。"
+        },
+        {
+          "title": "Asset",
+          "ja": "Releaseに付けた実ファイル",
+          "summary": "Setup.exe、ZIP、更新Metadataなど。"
+        },
+        {
+          "title": "Workflow",
+          "ja": "自動処理の設計",
+          "summary": "Actionsでテストやビルドをどう動かすか定義する。"
+        },
+        {
+          "title": "Workflow Run",
+          "ja": "Workflowを1回実行した記録",
+          "summary": "成功・失敗、実行時刻、Job、ログを見る。"
+        },
+        {
+          "title": "Job",
+          "ja": "Workflow内の大きな処理単位",
+          "summary": "build、test、deployなど。Jobの中にStepがある。"
+        },
+        {
+          "title": "Artifact",
+          "ja": "Actionsが作った成果物",
+          "summary": "Setup.exe、ZIP、ログなどをWorkflow Runからダウンロードできる。"
+        },
+        {
+          "title": "Deploy",
+          "ja": "公開先へ反映する",
+          "summary": "Pagesなどへサイトを公開する処理。"
+        },
+        {
+          "title": "Secret",
+          "ja": "公開してはいけない秘密値",
+          "summary": "API KeyやTokenをActionsで安全に渡すために使う。",
+          "note": "フロントエンドへ埋め込めば見えるのでSecretではなくなる。"
+        },
+        {
+          "title": "Fork",
+          "ja": "他Repositoryの自分側コピー",
+          "summary": "元Repositoryとは別に、自分のGitHub側で改造するときなどに使う。"
+        },
+        {
+          "title": "Clone",
+          "ja": "RepositoryをPCへGitとしてコピー",
+          "summary": "履歴やBranchを含めてローカル作業するときに使う。"
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "title": "よくあるエラー・詰まり方",
+      "description": "GitHubで問題が起きたときに、最初に見る場所をまとめる。",
+      "entries": [
+        {
+          "code": "ACTIONS",
+          "title": "GitHub Actionsが赤く失敗した",
+          "message": "failure / Process completed with exit code 1",
+          "summary": "Workflow内のどこかのStepが失敗している。",
+          "firstAction": "Actions → 対象Run → 失敗Job → 赤いStepまで開く。",
+          "steps": [
+            "最初に失敗したStepを探す",
+            "エラー文の直前数行を見る",
+            "テスト失敗・権限不足・ファイル不存在など原因を分ける",
+            "修正後は新しいCommitのRunで確認する"
+          ],
+          "note": "最後のexit codeだけでは原因は分からない。"
+        },
+        {
+          "code": "PAGES",
+          "title": "GitHub Pagesが404になる",
+          "summary": "Pagesが未設定、Deploy失敗、公開Path違い、ファイル名違いなどが考えられる。",
+          "firstAction": "Settings → Pagesで公開元を確認し、ActionsのPages Runを見る。",
+          "steps": [
+            "Settings → Pagesを確認する",
+            "pages build and deploymentの最新Runを見る",
+            "index.htmlが公開対象にあるか確認する",
+            "大文字小文字と相対Pathを確認する"
+          ]
+        },
+        {
+          "code": "PERMISSION",
+          "title": "Resource not accessible by integration",
+          "message": "Resource not accessible by integration",
+          "summary": "ActionsやGitHub Appの権限が足りない可能性が高い。",
+          "firstAction": "何を書き込もうとして失敗したか確認し、Workflow permissionsやApp権限を見る。",
+          "steps": [
+            "失敗したAPI操作を確認する",
+            "Settings → Actions → GeneralのWorkflow permissionsを見る",
+            "必要ならWorkflowのpermissions指定を確認する"
+          ],
+          "note": "闇雲にwrite権限を増やさず、必要な権限だけ追加する。"
+        },
+        {
+          "code": "CONFLICT",
+          "title": "This branch has conflicts that must be resolved",
+          "message": "This branch has conflicts that must be resolved",
+          "summary": "同じ場所に複数の変更があり、自動Mergeできない。",
+          "firstAction": "競合したファイルを確認して、最終的に残す内容を決める。",
+          "steps": [
+            "Conflictファイルを特定する",
+            "main側とBranch側の変更意図を確認する",
+            "正しい最終内容へ統合する",
+            "テストしてからMergeする"
+          ]
+        },
+        {
+          "code": "RELEASE",
+          "title": "Releaseにexeが見つからない",
+          "summary": "Release自体は作成されていても、Setup.exeのUploadが失敗している可能性がある。",
+          "firstAction": "ReleaseのAssetsと、Releaseを作るActions RunのArtifact / Upload Stepを見る。",
+          "steps": [
+            "対象ReleaseのAssetsを確認する",
+            "ActionsでBuildがSetup.exeを生成したか確認する",
+            "Release upload Stepが成功したか確認する"
+          ],
+          "note": "Releaseが存在するだけで配布成功とは限らない。"
         }
       ]
     }
