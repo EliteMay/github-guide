@@ -210,6 +210,7 @@ nav button.active { color: #0550ae; background: #ddf4ff; font-weight: 700; }
   background: var(--surface);
 }
 .panel + .panel { margin-top: 12px; }
+.guide-entry + .button-row { margin-bottom: 18px; }
 .row {
   display: grid;
   grid-template-columns: minmax(120px, 180px) minmax(0, 1fr);
@@ -219,6 +220,7 @@ nav button.active { color: #0550ae; background: #ddf4ff; font-weight: 700; }
 }
 .row:first-child { border-top: 0; }
 .row > strong { font-size: 13px; }
+.visual-row { align-items: start; }
 
 .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .primary-button,
@@ -237,6 +239,41 @@ nav button.active { color: #0550ae; background: #ddf4ff; font-weight: 700; }
 .primary-button:hover { color: #fff; background: var(--accent-dark); }
 .secondary-button { color: var(--text); border-color: var(--border); background: #fff; }
 .secondary-button:hover { color: var(--text); background: var(--surface-soft); }
+
+.guide-images {
+  display: grid;
+  gap: 14px;
+}
+.guide-image {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+.guide-image a:first-child {
+  display: block;
+  background: var(--surface-soft);
+}
+.guide-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+}
+.guide-image figcaption {
+  padding: 9px 12px 4px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+.image-source {
+  display: inline-block;
+  padding: 0 12px 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
 
 .notice {
   padding: 13px 15px;
