@@ -68,6 +68,7 @@ function renderEntry(entry) {
   return `
     <div class="panel guide-entry">
       <div class="row"><strong>${esc(entry.title)}</strong><div>${esc(entry.summary || "")}</div></div>
+      ${entry.category ? `<div class="row"><strong>分類</strong><div><span class="badge">${esc(entry.category)}</span></div></div>` : ""}
       ${entry.path ? `<div class="row"><strong>場所</strong><div><span class="term">${esc(entry.path)}</span></div></div>` : ""}
       ${entry.steps?.length ? `<div class="row"><strong>やり方</strong><div>${entry.steps.map((step, i) => `<div>${i + 1}. ${esc(step)}</div>`).join("")}</div></div>` : ""}
       ${entry.note ? `<div class="row"><strong>覚えておく</strong><div>${esc(entry.note)}</div></div>` : ""}
@@ -144,7 +145,7 @@ function searchableItems() {
     (section.entries || []).map(entry => ({
       section: section.id,
       title: entry.title,
-      text: [entry.ja, entry.summary, entry.path, entry.note, entry.example, entry.message, entry.firstAction, ...(entry.steps || [])].filter(Boolean).join(" ")
+      text: [entry.category, entry.ja, entry.summary, entry.path, entry.note, entry.example, entry.message, entry.firstAction, ...(entry.steps || [])].filter(Boolean).join(" ")
     }))
   );
 }
@@ -185,20 +186,36 @@ function render() {
   document.querySelector("#footerUpdated").textContent = `更新: ${state.data.updated}`;
 }
 
-async function loadSupplementalGuide() {
+async function loadSupplementalFile(path) {
   try {
-    const response = await fetch("./data/osu-hub.json", { cache: "no-store" });
+    const response = await fetch(path, { cache: "no-store" });
     if (!response.ok) return;
     const supplemental = await response.json();
-    const target = state.data.sections.find(section => section.id === supplemental.targetSection);
-    if (target && supplemental.entries?.length) {
-      target.entries = [...supplemental.entries, ...(target.entries || [])];
+
+    if (supplemental.section && !state.data.sections.some(section => section.id === supplemental.section.id)) {
+      state.data.sections.push(supplemental.section);
     }
+
+    if (supplemental.targetSection && supplemental.entries?.length) {
+      const target = state.data.sections.find(section => section.id === supplemental.targetSection);
+      if (target) target.entries = [...supplemental.entries, ...(target.entries || [])];
+    }
+
     if (supplemental.quickAction) {
       state.data.quickActions = [supplemental.quickAction, ...(state.data.quickActions || [])];
     }
+
+    if (supplemental.updated && supplemental.updated > state.data.updated) {
+      state.data.updated = supplemental.updated;
+    }
   } catch (error) {
-    console.warn("Supplemental guide could not be loaded", error);
+    console.warn("Supplemental guide could not be loaded", path, error);
+  }
+}
+
+async function loadSupplementalGuides() {
+  for (const path of ["./data/locations.json", "./data/osu-hub.json"]) {
+    await loadSupplementalFile(path);
   }
 }
 
@@ -207,7 +224,7 @@ async function init() {
     const response = await fetch("./data/projects.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`guide data ${response.status}`);
     state.data = await response.json();
-    await loadSupplementalGuide();
+    await loadSupplementalGuides();
 
     navButtons.forEach(button => button.addEventListener("click", () => setSection(button.dataset.section)));
     searchInput.addEventListener("input", () => {
