@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-31",
+  "projects": [
+    {
+      "id": "osu-hub",
+      "name": "osu! Hub / osu Setup Launcher",
+      "summary": "osu!の記録・練習管理を行うWeb版と、音声出力切替やOpenTabletDriver起動などをまとめたWindows向けosu Setup Launcherのユーザーガイドです。",
+      "status": "公開中",
+      "updated": "2026-08-31",
+      "platforms": [
+        "Webブラウザ",
+        "Windows 10 / 11（Launcher）"
+      ],
+      "repositoryUrl": "https://github.com/EliteMay/osu-hub",
+      "webUrl": "https://elitemay.github.io/osu-hub/",
+      "release": {
+        "githubRepo": "EliteMay/osu-hub",
+        "assetPattern": "^osu_setup_.*_setup\\.exe$",
+        "latestReleaseUrl": "https://github.com/EliteMay/osu-hub/releases/latest",
+        "version": "v0.18.3",
+        "date": "2026-08-31T08:13:37Z",
+        "assetName": "osu_setup_0.18.3_setup.exe",
+        "unsignedWarning": "現在のWindowsインストーラーはコード署名されていないため、Windows SmartScreenの警告が表示される場合があります。GitHubのEliteMay/osu-hub Releaseから取得したファイルであることを確認してください。"
+      },
+      "updateSteps": [
+        "v0.18.2以降を使っている場合は、Launcher内の更新通知からOne-click Updateを利用できます。",
+        "v0.18.1以前にはUpdaterが入っていないため、まず最新版Setup.exeを1回手動でインストールします。",
+        "更新中に問題が起きた場合は現在Versionを継続利用し、このガイドのReleaseページから手動更新します。",
+        "設定はElectron userDataへ保存する構成ですが、重要な設定やデータがある場合は更新前に確認してください。"
+      ],
+      "startSteps": [
+        "Web機能だけ使う場合はosu! HubのGitHub Pagesを開きます。",
+        "Windows補助機能を使う場合は「ダウンロード」から最新版のSetup.exeを入手します。",
+        "インストール後にosu Setup Launcherを起動します。",
+        "音声出力、OpenTabletDriver、REAL等、必要な機能だけ設定します。",
+        "設定名や内部用語が分からない場合は、このガイドの「設定・用語」を確認します。"
+      ],
+      "errors": [
+        {
+          "id": "AUDIO-001",
+          "title": "音声出力の切替が成功しない",
+          "meaning": "Launcherから指定した再生デバイスへWindowsの既定出力を切り替えられていない状態です。",
+          "firstAction": "対象デバイスがWindows側で使用可能になっているか確認し、Launcherを再起動してもう一度切替を試します。FxSoundなど表示名が複数の形式になるデバイスでは最新版Launcherを使用してください。",
+          "causes": [
+            "デバイス名の表記差",
+            "SoundVolumeCommandLineでの対象照合失敗",
+            "Windows Core Audio Fallbackの失敗"
+          ],
+          "safeNote": "v0.18.3ではFxSoundのようにSVCL名とWindows Friendly Nameの語順が異なる場合の照合が改善されています。実Windows環境での挙動は環境差があります。"
+        },
+        {
+          "id": "UPDATE-001",
+          "title": "アプリ内から更新できない",
+          "meaning": "古いLauncherにUpdaterが入っていない、またはGitHub Releasesへの更新確認に失敗している可能性があります。",
+          "firstAction": "v0.18.1以前なら、このガイドから最新版Setup.exeを1回手動インストールしてください。v0.18.2以降ならネット接続を確認して再試行します。",
+          "causes": [
+            "v0.18.1以前を使用中",
+            "ネットワーク障害",
+            "GitHub Releasesへの接続失敗"
+          ],
+          "safeNote": "更新確認に失敗しても現在Versionを継続利用できる設計です。"
+        },
+        {
+          "id": "WIN-001",
+          "title": "Windows SmartScreenの警告が表示される",
+          "message": "Windows protected your PC",
+          "meaning": "現在のSetup.exeがコード署名されていないため、Windowsが発行元をAuthenticodeで確認できない状態です。",
+          "firstAction": "ダウンロード元がEliteMay/osu-hubのGitHub Releaseであることを確認します。別サイトから取得した同名ファイルは使用しないでください。",
+          "causes": [
+            "Installerが未署名"
+          ],
+          "safeNote": "警告が出ないことだけを安全性の根拠にはしません。配布元の確認を優先してください。"
+        }
+      ],
+      "settings": [
+        {
+          "label": "One-click Update",
+          "ja": "アプリ内ワンクリック更新",
+          "description": "新しいVersionをGitHub Releasesから取得し、Launcherを終了してインストールした後、新Versionで再起動する更新方式です。",
+          "recommendation": "v0.18.2以降で利用"
+        },
+        {
+          "label": "Check for updates",
+          "ja": "更新を確認",
+          "description": "GitHub Releasesに新しいLauncherが公開されているか確認します。起動時の自動確認は設定からOFFにできます。",
+          "recommendation": "基本はON"
+        },
+        {
+          "label": "SoundVolumeCommandLine / SVCL",
+          "ja": "音声出力を切り替える補助ツール",
+          "description": "LauncherがWindowsの既定再生デバイスを切り替えるときに優先して使用する仕組みです。",
+          "recommendation": "通常はユーザーが直接操作する必要なし"
+        },
+        {
+          "label": "userData",
+          "ja": "Launcherのユーザー設定保存場所",
+          "description": "Electronがアプリ設定を保存するWindows側の領域です。Installer更新でアプリ本体を入れ替えても設定を維持しやすくするために使います。",
+          "recommendation": "通常は変更しない"
+        },
+        {
+          "label": "DefaultRenderDevice",
+          "ja": "Windowsの既定再生デバイス",
+          "description": "音楽やゲーム音など、通常の音声を出す標準の出力先です。Launcherの音声切替確認で参照されます。",
+          "recommendation": "音が出ないときの確認項目"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Releaseページには3つファイルがあるけど、どれをダウンロードすればいい？",
+          "a": "通常のWindowsユーザーはosu_setup_<version>_setup.exeを使います。latest.ymlと.blockmapはアプリ内自動更新のためのファイルなので、手動で開く必要はありません。"
+        },
+        {
+          "q": "v0.18.1からアプリ内更新できる？",
+          "a": "できません。Updaterはv0.18.2から入ったため、v0.18.1以前からは一度だけv0.18.2以降のSetup.exeを手動でインストールする必要があります。"
+        },
+        {
+          "q": "osu! HubのWeb版を使うのにもSetup.exeが必要？",
+          "a": "不要です。Setup.exeはWindows固有の補助機能を使うosu Setup Launcher用です。Web版はGitHub Pagesから利用できます。"
+        },
+        {
+          "q": "更新したら設定は消える？",
+          "a": "Launcher設定はElectron userDataへ保存する構成なので、通常のInstaller更新で上書きしない設計です。ただし重要なデータは別途バックアップできる状態にしておくと安全です。"
+        }
+      ],
+      "changelog": [
+        {
+          "version": "v0.18.3",
+          "date": "2026-08-31",
+          "items": [
+            "FxSoundでSVCL名とWindows Friendly Nameの語順・表記が異なる場合の音声Endpoint照合を改善",
+            "FxSound語順差のWindows CI Self Testを追加",
+            "v0.18.2以降はOne-click Updateで更新可能"
+          ]
+        },
+        {
+          "version": "v0.18.2",
+          "date": "2026-08-31",
+          "items": [
+            "electron-updaterとGitHub Releasesを使ったOne-click Updateを導入",
+            "v0.18.1以前からはv0.18.2以降のSetup.exeを1回手動導入するBootstrap方式"
+          ]
+        }
+      ]
+    }
+  ]
+}
