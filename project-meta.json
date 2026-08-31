@@ -1,0 +1,6 @@
+{
+  "guideVersion": "1.8.0",
+  "profiles": ["STATIC", "PUBLIC-CONTENT"],
+  "schemaVersion": 1,
+  "status": "initial"
+}
