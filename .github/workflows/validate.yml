@@ -21,6 +21,7 @@ jobs:
       - name: Validate JSON
         run: |
           node -e "JSON.parse(require('fs').readFileSync('data/projects.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('data/osu-hub.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('project-meta.json','utf8'))"
 
       - name: Check required files
@@ -29,6 +30,9 @@ jobs:
           test -f styles.css
           test -f app.js
           test -f data/projects.json
+          test -f data/osu-hub.json
+          test -f assets/guide/osu-hub-project-learnings.svg
+          test -f assets/guide/osu-hub-failure-section.svg
           test -f 404.html
           test -f README.md
           test -f PROJECT_LEARNINGS.md
