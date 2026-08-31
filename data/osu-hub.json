@@ -1,0 +1,100 @@
+{
+  "targetSection": "site-ops",
+  "quickAction": {
+    "section": "site-ops",
+    "title": "osu-hubの失敗を見たい",
+    "description": "過去の失敗まとめと、Actionsの今回の失敗ログを見る"
+  },
+  "entries": [
+    {
+      "title": "osu-hub: 過去の失敗まとめを見る",
+      "path": "osu-hub → Code → PROJECT_LEARNINGS.md → Failure",
+      "summary": "以前どんな失敗が起きて、原因・最終修正・再発防止をどうしたかをまとめて読む場所。現在はPL-F-001〜PL-F-005などが記録されている。",
+      "steps": [
+        "EliteMay/osu-hub を開く",
+        "上の Code タブを開く",
+        "ファイル一覧から PROJECT_LEARNINGS.md を押す",
+        "ページ内の ## Failure まで移動する",
+        "PL-F-001、PL-F-002…を読む。Root Cause が原因、Final Fix が最終修正、Regression Guard が再発防止"
+      ],
+      "note": "Actionsの赤い失敗は『今回の自動処理がなぜ失敗したか』を見る場所。PROJECT_LEARNINGS.mdは『過去に起きた重要な失敗を後から学ぶ』ための場所なので用途が違う。",
+      "images": [
+        {
+          "src": "./assets/guide/osu-hub-project-learnings.svg",
+          "alt": "osu-hubのCodeタブからPROJECT_LEARNINGS.mdを開く場所を示す図",
+          "caption": "1. Codeタブを開き、PROJECT_LEARNINGS.mdを押す"
+        },
+        {
+          "src": "./assets/guide/osu-hub-failure-section.svg",
+          "alt": "PROJECT_LEARNINGS.mdのFailureセクションとPL-F番号を示す図",
+          "caption": "2. ## Failure の下にある PL-F-xxx が過去の失敗記録"
+        }
+      ],
+      "links": [
+        {
+          "label": "osu-hubの失敗まとめを直接開く",
+          "url": "https://github.com/EliteMay/osu-hub/blob/main/PROJECT_LEARNINGS.md#failure"
+        },
+        {
+          "label": "osu-hub Repository",
+          "url": "https://github.com/EliteMay/osu-hub"
+        }
+      ]
+    },
+    {
+      "title": "osu-hub: 今回のActions失敗を詳しく見る",
+      "path": "osu-hub → Actions → Workflow → Run → Job → 赤いStep",
+      "summary": "直近のビルド、テスト、Pages、Releaseなどが失敗した理由をログで確認する場所。赤い×が付いたRunから、失敗したJobとStepまで順番に開く。",
+      "steps": [
+        "EliteMay/osu-hub を開く",
+        "上の Actions タブを押す",
+        "左側から確認したいWorkflowを選ぶ。例: Build Windows installer / Check web / Deploy osu Hub Pages",
+        "赤い×が付いているWorkflow Runを押す",
+        "Jobsから赤い×のJobを押す",
+        "ログ内の赤い×になっているStepを開く",
+        "一番下付近のエラー文だけでなく、その少し上の最初に失敗した行も確認する"
+      ],
+      "note": "『Actions failed』だけでは原因は分からない。必ず Run → Job → Step まで入る。ログが長い場合はSearch logsやDownload log archiveも使える。",
+      "images": [
+        {
+          "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+          "alt": "GitHub Repositoryの上部でActionsタブが強調された公式スクリーンショット",
+          "caption": "1. Repository上部の Actions を押す",
+          "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+        },
+        {
+          "src": "https://docs.github.com/assets/images/help/repository/actions-quickstart-workflow-sidebar.png",
+          "alt": "GitHub Actions画面の左側Workflow一覧を示す公式スクリーンショット",
+          "caption": "2. 左側から確認するWorkflowを選ぶ",
+          "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+        },
+        {
+          "src": "https://docs.github.com/assets/images/help/repository/actions-quickstart-job.png",
+          "alt": "Workflow Run画面でJobを選択する場所を示す公式スクリーンショット",
+          "caption": "3. Workflow Runを開いて、失敗したJobを押す",
+          "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+        },
+        {
+          "src": "https://docs.github.com/assets/images/help/repository/actions-quickstart-logs.png",
+          "alt": "GitHub ActionsのStepログを示す公式スクリーンショット",
+          "caption": "4. 赤く失敗したStepを開いてログを読む",
+          "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+        }
+      ],
+      "links": [
+        {
+          "label": "osu-hub Actionsを開く",
+          "url": "https://github.com/EliteMay/osu-hub/actions"
+        },
+        {
+          "label": "GitHub公式: Workflow結果の見方",
+          "url": "https://docs.github.com/en/actions/get-started/quickstart#viewing-your-workflow-results"
+        },
+        {
+          "label": "GitHub公式: ログの見方",
+          "url": "https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs"
+        }
+      ]
+    }
+  ]
+}
