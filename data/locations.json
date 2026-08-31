@@ -1,0 +1,783 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-31",
+  "quickAction": {
+    "section": "where",
+    "title": "場所が分からない",
+    "description": "Secrets、Artifact、Rulesets、Deploymentsなど『どこ？』から探す"
+  },
+  "section": {
+    "id": "where",
+    "title": "「あれどこ？」場所辞典",
+    "description": "GitHubで普通は場所が分かりにくい機能を、目的と画面上の場所から逆引きするページ。検索欄へ英語名をそのまま入れても探せます。",
+    "badge": "場所から逆引き",
+    "entries": [
+      {
+        "category": "Settings",
+        "title": "Settingsタブ自体が見つからない",
+        "path": "Repository上部 → Settings（見えない場合は上部の「…」メニュー）",
+        "summary": "Repositoryの重要設定はほぼここから入る。画面幅が狭いとSettingsが上部タブに出ず、追加メニュー内に隠れることがある。",
+        "note": "Settingsが見えない＝権限がないとは限らない。まず「…」を見る。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Secrets",
+        "title": "Repository Secret",
+        "path": "Settings → Secrets and variables → Actions → Secrets",
+        "summary": "API KeyやTokenなど、Actionsで使う秘密値を保存する場所。",
+        "note": "Secret値は登録後にGitHub画面から読み戻せない。変更するときは上書きする。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Variables",
+        "title": "Repository Variable",
+        "path": "Settings → Secrets and variables → Actions → Variables",
+        "summary": "秘密ではない設定値をActionsへ渡す場所。",
+        "note": "API Keyなど秘密値はVariablesではなくSecretsへ。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Environments",
+        "title": "Environment",
+        "path": "Settings → Environments",
+        "summary": "production / stagingなどのデプロイ先、承認ルール、Environment Secretを設定する場所。",
+        "note": "EnvironmentをWorkflowで参照すると、その環境の保護ルールやSecretが適用される。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Secrets",
+        "title": "Environment Secret",
+        "path": "Settings → Environments → 対象Environment → Environment secrets",
+        "summary": "特定のEnvironmentを使うJobだけに渡すSecret。",
+        "note": "Repository Secretより範囲を狭くできる。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Workflow permissions",
+        "path": "Settings → Actions → General → Workflow permissions",
+        "summary": "GITHUB_TOKENを読み取り専用にするか、書き込みも許可するかの既定値。",
+        "note": "Release作成やRepositoryへの書き込みが403になるときに確認する。Workflow側のpermissions指定も見る。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Actions permissions",
+        "path": "Settings → Actions → General → Actions permissions",
+        "summary": "どのAction・Reusable Workflowの実行を許可するかを設定する。",
+        "note": "『Action is not allowed』系の失敗で確認する場所。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Rules",
+        "title": "Rulesets",
+        "path": "Settings → Rules → Rulesets",
+        "summary": "mainへの直接push禁止、PR必須、Status check必須などをまとめて設定する新しい保護機能。",
+        "note": "ルールに阻まれてpush/mergeできないときはここを確認。Repository URL末尾 /rules でも有効ルールを確認できる。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Rules",
+        "title": "Branch protection rule",
+        "path": "Settings → Branches / Branch protection rules",
+        "summary": "古い形式のBranch保護設定。main削除禁止、Status check必須などを設定する。",
+        "note": "新しく組むならRulesetsの方が見つけやすい場合があるが、既存RepositoryにはBranch protectionも残っている。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Branch",
+        "title": "Default branch",
+        "path": "Settings → General → Default branch",
+        "summary": "PRやCode画面で既定になるBranchを変更する。",
+        "note": "main以外へ変更するとPagesやWorkflowの条件にも影響する場合がある。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/changing-the-default-branch",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "PR",
+        "title": "Merge方法の設定",
+        "path": "Settings → General → Pull Requests",
+        "summary": "Merge commit / Squash and merge / Rebase and merge / Auto-mergeなどを許可・禁止する。",
+        "note": "PR画面に目的のMergeボタンが出ないときはここを見る。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Access",
+        "title": "Collaborators",
+        "path": "Settings → Access → Collaborators",
+        "summary": "自分のRepositoryへ他の人を招待する場所。",
+        "note": "個人Repositoryではownerとcollaboratorが基本。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Webhook",
+        "title": "Webhooks",
+        "path": "Settings → Webhooks",
+        "summary": "GitHubのpushやIssueなどを外部サービスへ通知する設定。",
+        "note": "外部サービス連携が急に動かないときはRecent Deliveriesも確認する。",
+        "officialUrl": "https://docs.github.com/en/webhooks/using-webhooks/editing-webhooks",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Repository",
+        "title": "Repository名を変更",
+        "path": "Settings → General → Repository name",
+        "summary": "Repository名を変更する場所。",
+        "note": "GitHub PagesのURLやClone URL、外部リンクが変わる可能性がある。",
+        "officialUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Danger Zone",
+        "title": "Public / Privateを変更",
+        "path": "Settings → General → Danger Zone → Change repository visibility",
+        "summary": "Repositoryの公開範囲を変更する。",
+        "note": "PagesやActions、公開リンク、Forkなどへの影響が大きい。意味を確認してから変更する。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Danger Zone",
+        "title": "RepositoryをArchive",
+        "path": "Settings → General → Danger Zone → Archive this repository",
+        "summary": "Repositoryを読み取り専用にして、通常の開発を止める。",
+        "note": "削除とは違う。あとでUnarchiveできる。",
+        "officialUrl": "https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Danger Zone",
+        "title": "Repositoryを削除",
+        "path": "Settings → General → Danger Zone → Delete this repository",
+        "summary": "Repositoryを削除する最も危険な操作。",
+        "note": "ReleaseやIssue等も含め大きな影響があるため、必要なら先にBackupを取る。",
+        "officialUrl": "https://docs.github.com/en/repositories/creating-and-managing-repositories/deleting-a-repository",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Appearance",
+        "title": "Social preview画像",
+        "path": "Settings → General → Social preview → Edit",
+        "summary": "RepositoryリンクをSNS等へ貼ったときに表示される画像を設定する。",
+        "note": "README内画像とは別。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Workflowの一覧",
+        "path": "Repository → Actions → 左サイドバー",
+        "summary": "Repository内のWorkflowを選ぶ場所。",
+        "note": "ファイル名ではなくWorkflowのnameが表示される。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/monitor-workflows/view-workflow-run-history",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "失敗したRun",
+        "path": "Repository → Actions → Workflow → 赤い×のWorkflow Run",
+        "summary": "1回ごとの実行結果。失敗原因を追う入口。",
+        "note": "最終的なexit codeだけでなく、最初に赤くなったJob/Stepまで開く。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "失敗したStepのログ",
+        "path": "Actions → Workflow Run → Job → 赤いStep",
+        "summary": "コマンドやテストが実際に出したエラー本文を見る場所。",
+        "note": "『Process completed with exit code 1』の直前の行が重要なことが多い。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Artifact",
+        "path": "Actions → Workflow Run → Artifacts",
+        "summary": "Workflowが生成したSetup.exe、ZIP、テスト結果などをダウンロードする場所。",
+        "note": "ArtifactはReleaseとは別。検証用Buildがここだけにあることがある。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Workflowログ一式をダウンロード",
+        "path": "Actions → Workflow Run → メニュー → Download log archive",
+        "summary": "RunのログをまとめてZIPで取得する。",
+        "note": "ChatGPTへ原因調査を渡すとき、必要な範囲だけ共有できると便利。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Re-run failed jobs",
+        "path": "Actions → Workflow Run → Re-run jobs → Re-run failed jobs",
+        "summary": "失敗したJobだけ再実行する。",
+        "note": "一時的な外部API障害などには有効。コードが間違っているなら修正Commitが先。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "Actions Cache",
+        "path": "Repository → Actions → 左サイドバー Management → Caches",
+        "summary": "actions/cacheなどが作った依存関係Cacheの容量・最終利用・削除を確認する。",
+        "note": "Cache破損や容量問題の切り分けに使う。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manage-caches",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Actions",
+        "title": "WorkflowのYAMLファイル",
+        "path": "Code → .github → workflows → *.yml / *.yaml",
+        "summary": "Actionsが『何をいつ動かすか』を書いている正本。",
+        "note": "UIで結果を見る場所と、処理内容を直す場所は別。",
+        "officialUrl": "https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Code",
+        "title": "全Branch一覧",
+        "path": "Code → Branch dropdown → View all branches",
+        "summary": "main以外のBranchを一覧で確認する。",
+        "note": "作業Branchの削除やRuleset確認の入口にもなる。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "Branch",
+        "title": "Branchを削除",
+        "path": "Code → Branch dropdown → View all branches → 対象Branchの削除アイコン",
+        "summary": "不要になったBranchを削除する。",
+        "note": "open中のPRで使われているBranchは削除できない場合がある。Merge済みPRならPR画面下部のDelete branchも使える。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/deleting-and-restoring-branches-in-a-pull-request",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "Branch",
+        "title": "削除したBranchを復元",
+        "path": "Pull Request → Closed/Merged PR → Restore branch",
+        "summary": "PRに紐づく削除済みBranchを復元できる場合がある。",
+        "note": "完全に履歴が消えたという意味ではない。",
+        "officialUrl": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/deleting-and-restoring-branches-in-a-pull-request",
+        "images": [
+          {
+            "src": "./assets/guide/pr-navigation.svg",
+            "alt": "Pull Requestの場所案内図",
+            "caption": "Conversation / Commits / Checks / Files changed の使い分け"
+          }
+        ]
+      },
+      {
+        "category": "Code",
+        "title": "Commitの差分",
+        "path": "Code → Commits → 対象Commit",
+        "summary": "そのCommitで何行追加・削除されたかを見る。",
+        "note": "不具合が『どの変更から出たか』を追うときに使う。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/committing-changes-to-your-project/viewing-and-comparing-commits",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "PR",
+        "title": "PRの実際の変更内容",
+        "path": "Pull requests → 対象PR → Files changed",
+        "summary": "PRでmainへ入る差分だけを見る。",
+        "note": "大きい変更ではまずここで不要ファイルや想定外変更がないか見る。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/reviewing-proposed-changes-in-a-pull-request",
+        "images": [
+          {
+            "src": "./assets/guide/pr-navigation.svg",
+            "alt": "Pull Requestの場所案内図",
+            "caption": "Conversation / Commits / Checks / Files changed の使い分け"
+          }
+        ]
+      },
+      {
+        "category": "PR",
+        "title": "PRのCI結果",
+        "path": "Pull requests → 対象PR → Checks",
+        "summary": "PRに紐づくActionsやStatus Checkを見る。",
+        "note": "失敗の詳細はDetailsからActionsへ進む。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks",
+        "images": [
+          {
+            "src": "./assets/guide/pr-navigation.svg",
+            "alt": "Pull Requestの場所案内図",
+            "caption": "Conversation / Commits / Checks / Files changed の使い分け"
+          }
+        ]
+      },
+      {
+        "category": "PR",
+        "title": "PR内のCommit一覧",
+        "path": "Pull requests → 対象PR → Commits",
+        "summary": "そのPRに含まれるCommitだけを見る。",
+        "note": "作業途中の不要Commitが混ざっていないか確認できる。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/committing-changes-to-your-project/viewing-and-comparing-commits",
+        "images": [
+          {
+            "src": "./assets/guide/pr-navigation.svg",
+            "alt": "Pull Requestの場所案内図",
+            "caption": "Conversation / Commits / Checks / Files changed の使い分け"
+          }
+        ]
+      },
+      {
+        "category": "PR",
+        "title": "Mergeできない理由",
+        "path": "Pull requests → 対象PR → Conversation → Merge box",
+        "summary": "Review不足、Checks失敗、Ruleset、ConflictなどMergeを止めている理由が表示される。",
+        "note": "『ボタンが押せない』ときはまずMerge boxの文章を見る。",
+        "officialUrl": "https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/merging-a-pull-request",
+        "images": [
+          {
+            "src": "./assets/guide/pr-navigation.svg",
+            "alt": "Pull Requestの場所案内図",
+            "caption": "Conversation / Commits / Checks / Files changed の使い分け"
+          }
+        ]
+      },
+      {
+        "category": "Release",
+        "title": "Releasesの場所",
+        "path": "Repository Code画面 → 右側 Releases",
+        "summary": "完成版、Version履歴、Setup.exeなどを置く場所。",
+        "note": "CodeのDownload ZIPはソース。完成アプリはReleasesを見る。",
+        "officialUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "Release",
+        "title": "Release Asset",
+        "path": "Repository → Releases → 対象Release → Assets",
+        "summary": "Setup.exe、ZIP、latest.ymlなどReleaseに添付した実ファイル。",
+        "note": "Source code (zip/tar.gz) はGitHub自動生成で、Windows Installerとは別。",
+        "officialUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "Release",
+        "title": "最新版Releaseへの固定リンク",
+        "path": "Repository URL + /releases/latest",
+        "summary": "Version番号をURLに書かず、常に最新Releaseへ移動するリンク。",
+        "note": "手動Uploadでファイル名が固定なら /releases/latest/download/asset-name も使える。",
+        "officialUrl": "https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ],
+        "example": "https://github.com/EliteMay/osu-hub/releases/latest"
+      },
+      {
+        "category": "Pages",
+        "title": "Pagesの公開元",
+        "path": "Settings → Pages → Build and deployment",
+        "summary": "どのBranch / Folder、またはGitHub Actionsから公開するかを見る。",
+        "note": "404や古い内容が出るときの最初の確認場所。",
+        "officialUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Pages",
+        "title": "GitHub Pagesの公開URL",
+        "path": "Settings → Pages の上部",
+        "summary": "現在公開されているURLを確認する。",
+        "note": "通常のProject Pagesは https://ユーザー名.github.io/Repository名/ 。",
+        "officialUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Pages",
+        "title": "PagesのBuild / Deploy失敗",
+        "path": "Actions → pages build and deployment → 最新Run",
+        "summary": "GitHub Pagesが404・更新されないときにBuildとDeployの成否を見る。",
+        "note": "Codeが正しくてもDeploy失敗なら公開サイトは更新されない。",
+        "officialUrl": "https://docs.github.com/en/pages/getting-started-with-github-pages/troubleshooting-404-errors-for-github-pages-sites",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Pages",
+        "title": "Custom domain",
+        "path": "Settings → Pages → Custom domain",
+        "summary": "独自ドメインをGitHub Pagesへ設定する。",
+        "note": "DNS設定も必要。GitHub側だけ入力して終わりではない。",
+        "officialUrl": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages",
+        "images": [
+          {
+            "src": "./assets/guide/settings-navigation.svg",
+            "alt": "GitHub Settingsの場所案内図",
+            "caption": "Settings左サイドバーの迷いやすい場所"
+          }
+        ]
+      },
+      {
+        "category": "Deploy",
+        "title": "Deployment履歴",
+        "path": "Repositoryトップ右側 → Deployments / Environments",
+        "summary": "現在・過去のDeploy、対象Environment、Commit、公開URL、関連Workflowを見る。",
+        "note": "GitHub Pages以外のDeployでもEnvironmentを使うとここに出る。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/view-deployment-history",
+        "images": [
+          {
+            "src": "./assets/guide/repository-navigation.svg",
+            "alt": "Repository画面の場所案内図",
+            "caption": "Repository画面でCode、Actions、Settings、Releasesなどを探す案内図"
+          }
+        ]
+      },
+      {
+        "category": "Deploy",
+        "title": "Deploymentのログへ飛ぶ",
+        "path": "Deployments → 対象Deployment → メニュー → View logs",
+        "summary": "そのDeployを作ったActions Runへ移動する。",
+        "note": "『公開はされたけど何が実行された？』を追うときに使う。",
+        "officialUrl": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/view-deployment-history",
+        "images": [
+          {
+            "src": "./assets/guide/actions-navigation.svg",
+            "alt": "GitHub Actionsの場所案内図",
+            "caption": "Actions → Workflow → Run → Job → Step の流れ"
+          },
+          {
+            "src": "https://docs.github.com/assets/images/help/repository/actions-tab-global-nav-update.png",
+            "alt": "GitHub公式のActionsタブのスクリーンショット",
+            "caption": "GitHub公式: Repository上部のActionsタブ",
+            "sourceUrl": "https://docs.github.com/en/actions/get-started/quickstart"
+          }
+        ]
+      },
+      {
+        "category": "Security",
+        "title": "Dependabot alerts",
+        "path": "Security and quality → Findings → Dependabot → Vulnerabilities",
+        "summary": "依存パッケージに既知の脆弱性があるときの警告一覧。",
+        "note": "package.json等を使うRepositoryで特に見る。",
+        "officialUrl": "https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/dependabot-quickstart",
+        "images": [
+          {
+            "src": "./assets/guide/security-navigation.svg",
+            "alt": "GitHub Securityの場所案内図",
+            "caption": "Securityの警告を見る場所と設定する場所"
+          }
+        ]
+      },
+      {
+        "category": "Security",
+        "title": "Secret scanning alerts",
+        "path": "Security and quality → Secret scanning alerts",
+        "summary": "RepositoryへTokenやSecretらしい値が入った可能性を知らせる。",
+        "note": "本物のSecretが漏れた場合、GitHubから削除するだけでなく元サービス側で無効化・再発行する。",
+        "officialUrl": "https://docs.github.com/en/code-security/secret-scanning/managing-alerts-from-secret-scanning",
+        "images": [
+          {
+            "src": "./assets/guide/security-navigation.svg",
+            "alt": "GitHub Securityの場所案内図",
+            "caption": "Securityの警告を見る場所と設定する場所"
+          }
+        ]
+      },
+      {
+        "category": "Security",
+        "title": "Code scanning alerts",
+        "path": "Security and quality → Code scanning alerts",
+        "summary": "CodeQL等が見つけたコード上のセキュリティ問題を見る。",
+        "note": "機能の有効化はSettings → Advanced Security側。",
+        "officialUrl": "https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts",
+        "images": [
+          {
+            "src": "./assets/guide/security-navigation.svg",
+            "alt": "GitHub Securityの場所案内図",
+            "caption": "Securityの警告を見る場所と設定する場所"
+          }
+        ]
+      },
+      {
+        "category": "Security",
+        "title": "Security機能のON/OFF",
+        "path": "Settings → Advanced Security",
+        "summary": "Dependabot、Secret scanning、Code scanning等の設定を確認する。",
+        "note": "警告を見るタブと、機能を設定する場所は別。",
+        "officialUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository",
+        "images": [
+          {
+            "src": "./assets/guide/security-navigation.svg",
+            "alt": "GitHub Securityの場所案内図",
+            "caption": "Securityの警告を見る場所と設定する場所"
+          }
+        ]
+      }
+    ]
+  }
+}
