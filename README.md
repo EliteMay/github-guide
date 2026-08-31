@@ -61,6 +61,15 @@ GitHub PagesのBranch公開を前提に、すべて相対Pathで構成してい�
 
 GitHubで `Settings → Pages → Deploy from a branch → main / (root)` を選択すると公開できます。
 
+## Validation
+
+`.github/workflows/validate.yml` でpush / pull request時に以下を確認します。
+
+- `app.js` のJavaScript構文
+- `data/projects.json` / `project-meta.json` のJSON形式
+- 公開に必要な主要ファイルの存在
+- `OWNER/REPOSITORY` 等のTemplate仮URLが残っていないこと
+
 ## 文章ルール
 
 - 技術的な原因より先に「ユーザーが何をすればよいか」を分かるようにする
