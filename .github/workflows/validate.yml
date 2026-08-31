@@ -22,7 +22,19 @@ jobs:
         run: |
           node -e "JSON.parse(require('fs').readFileSync('data/projects.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('data/osu-hub.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('data/locations.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('project-meta.json','utf8'))"
+
+      - name: Validate location dictionary
+        run: |
+          node - <<'NODE'
+          const data = JSON.parse(require('fs').readFileSync('data/locations.json', 'utf8'));
+          if (data.section?.id !== 'where') throw new Error('locations section id must be where');
+          if (!Array.isArray(data.section?.entries) || data.section.entries.length < 30) throw new Error('location dictionary is too small');
+          for (const entry of data.section.entries) {
+            if (!entry.title || !entry.path || !entry.summary) throw new Error(`invalid location entry: ${entry.title || 'unknown'}`);
+          }
+          NODE
 
       - name: Check required files
         run: |
@@ -31,8 +43,14 @@ jobs:
           test -f app.js
           test -f data/projects.json
           test -f data/osu-hub.json
+          test -f data/locations.json
           test -f assets/guide/osu-hub-project-learnings.svg
           test -f assets/guide/osu-hub-failure-section.svg
+          test -f assets/guide/repository-navigation.svg
+          test -f assets/guide/settings-navigation.svg
+          test -f assets/guide/actions-navigation.svg
+          test -f assets/guide/pr-navigation.svg
+          test -f assets/guide/security-navigation.svg
           test -f 404.html
           test -f README.md
           test -f PROJECT_LEARNINGS.md
