@@ -44,14 +44,36 @@ function docsLink(url) {
   return `<div class="button-row"><a class="secondary-button" href="${esc(url)}" target="_blank" rel="noopener noreferrer">GitHub公式ドキュメント</a></div>`;
 }
 
+function renderImages(images = []) {
+  if (!images.length) return "";
+  return `
+    <div class="guide-images">
+      ${images.map(image => `
+        <figure class="guide-image">
+          <a href="${esc(image.href || image.src)}" target="_blank" rel="noopener noreferrer">
+            <img src="${esc(image.src)}" alt="${esc(image.alt || image.caption || "ガイド画像")}" loading="lazy">
+          </a>
+          ${image.caption ? `<figcaption>${esc(image.caption)}</figcaption>` : ""}
+          ${image.sourceUrl ? `<a class="image-source" href="${esc(image.sourceUrl)}" target="_blank" rel="noopener noreferrer">画像の出典</a>` : ""}
+        </figure>`).join("")}
+    </div>`;
+}
+
+function renderLinks(links = []) {
+  if (!links.length) return "";
+  return `<div class="button-row">${links.map((link, index) => `<a class="${index === 0 ? "primary-button" : "secondary-button"}" href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">${esc(link.label)}</a>`).join("")}</div>`;
+}
+
 function renderEntry(entry) {
   return `
-    <div class="panel">
+    <div class="panel guide-entry">
       <div class="row"><strong>${esc(entry.title)}</strong><div>${esc(entry.summary || "")}</div></div>
       ${entry.path ? `<div class="row"><strong>場所</strong><div><span class="term">${esc(entry.path)}</span></div></div>` : ""}
       ${entry.steps?.length ? `<div class="row"><strong>やり方</strong><div>${entry.steps.map((step, i) => `<div>${i + 1}. ${esc(step)}</div>`).join("")}</div></div>` : ""}
       ${entry.note ? `<div class="row"><strong>覚えておく</strong><div>${esc(entry.note)}</div></div>` : ""}
       ${entry.example ? `<div class="row"><strong>例</strong><div><span class="term">${esc(entry.example)}</span></div></div>` : ""}
+      ${entry.images?.length ? `<div class="row visual-row"><strong>画像</strong><div>${renderImages(entry.images)}</div></div>` : ""}
+      ${entry.links?.length ? `<div class="row"><strong>開く</strong><div>${renderLinks(entry.links)}</div></div>` : ""}
     </div>
     ${docsLink(entry.officialUrl)}`;
 }
@@ -108,6 +130,8 @@ function renderErrors(section) {
               <p><strong>まず確認:</strong> ${esc(item.firstAction || "")}</p>
               ${item.steps?.length ? `<p><strong>対処:</strong></p>${item.steps.map((step, i) => `<div>${i + 1}. ${esc(step)}</div>`).join("")}` : ""}
               ${item.note ? `<p class="small muted">${esc(item.note)}</p>` : ""}
+              ${renderImages(item.images || [])}
+              ${renderLinks(item.links || [])}
               ${item.officialUrl ? `<p><a href="${esc(item.officialUrl)}" target="_blank" rel="noopener noreferrer">GitHub公式ドキュメント</a></p>` : ""}
             </div>
           </details>`).join("")}
@@ -161,11 +185,29 @@ function render() {
   document.querySelector("#footerUpdated").textContent = `更新: ${state.data.updated}`;
 }
 
+async function loadSupplementalGuide() {
+  try {
+    const response = await fetch("./data/osu-hub.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const supplemental = await response.json();
+    const target = state.data.sections.find(section => section.id === supplemental.targetSection);
+    if (target && supplemental.entries?.length) {
+      target.entries = [...supplemental.entries, ...(target.entries || [])];
+    }
+    if (supplemental.quickAction) {
+      state.data.quickActions = [supplemental.quickAction, ...(state.data.quickActions || [])];
+    }
+  } catch (error) {
+    console.warn("Supplemental guide could not be loaded", error);
+  }
+}
+
 async function init() {
   try {
     const response = await fetch("./data/projects.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`guide data ${response.status}`);
     state.data = await response.json();
+    await loadSupplementalGuide();
 
     navButtons.forEach(button => button.addEventListener("click", () => setSection(button.dataset.section)));
     searchInput.addEventListener("input", () => {
